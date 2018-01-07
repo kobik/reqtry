@@ -24,17 +24,17 @@ module.exports = function request(request, method, url, options) {
             .then((response) => handleResponse(retryOptions, request, response))
             .catch((error) => handleError(retryOptions, _url, error, ++errorCount));
     }, retryOptions)
-        .then((response) => buildResponse(response, errorCount));
+        .then((response) => buildResponse(retryOptions, response, errorCount));
 };
 
 function buildOptions(url, options, retryDefaults) {
     var retryOptions;
     if (typeof url === 'string') {
         options = options || {};
-        retryOptions = defaults(options.retry, retryDefaults);
+        retryOptions = defaults({}, options.retry, retryDefaults);
         options = buildRequestOptions(options, retryOptions);
     } else if (typeof url === 'object') {
-        retryOptions = defaults(url.retry, retryDefaults);
+        retryOptions = defaults({}, url.retry, retryDefaults);
         url = buildRequestOptions(url, retryOptions);
     }
 
@@ -42,10 +42,9 @@ function buildOptions(url, options, retryDefaults) {
 }
 
 function buildRequestOptions(requestOptions, retryOptions) {
-    if (retryOptions.retryOn5xx === true || typeof retryOptions.retryStrategyFn === 'function') {
-        requestOptions.simple = false;
-        requestOptions.resolveWithFullResponse = true;
-    }
+    retryOptions.simple = requestOptions.simple || retryOptions.simple;
+    requestOptions.simple = false;
+    requestOptions.resolveWithFullResponse = true;
     return requestOptions;
 }
 
@@ -69,11 +68,10 @@ function handleError(retryOptions, request, error, errorCount) {
     throw error;
 }
 
-function buildResponse(response, errorCount) {
-    if (isObject(response)) {
-        response.errorCount = errorCount;
-        return response;
-    } else {
-        return response;
+function buildResponse(retryOptions, response, errorCount) {
+    if ((retryOptions.simple === true || retryOptions.simple === undefined) && response.statusCode >= 300) {
+        throw new StatusCodeError(response);
     }
+    response.errorCount = errorCount;
+    return response;
 }
