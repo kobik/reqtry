@@ -2,7 +2,7 @@
 
 var retry = require('retry-as-promised');
 var StatusCodeError = require('./StatusCodeError');
-var RetryError = require('./RetryError');
+var RequestError = require('./RequestError');
 var defaults = require('lodash').defaults;
 var isObject = require('lodash').isObject;
 
@@ -55,7 +55,7 @@ function handleResponse(retryOptions, request, response, errorCount) {
     if (retryOn5xx && response.statusCode >= 500) {
         throw new StatusCodeError(response);
     } else if (typeof retryStrategyFn === 'function' && retryStrategyFn(response)) {
-        throw new RetryError(response);
+        throw new RequestError(response);
     } else if (typeof successFn === 'function') {
         successFn(request, response, errorCount);
     }

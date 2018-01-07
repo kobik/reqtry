@@ -1,7 +1,7 @@
 var request = require('../index');
 var rp = require('request-promise-native');
 var StatusCodeError = require('../src/StatusCodeError');
-var RetryError = require('../src/RetryError');
+var RequestError = require('../src/RequestError');
 var sinon = require('sinon');
 var should = require('should');
 var Http = require('http');
@@ -221,7 +221,7 @@ describe('When sending get request with max value set and retryStrategyFn given'
             body: 'body'
         };
         stub.resolves(response);
-        return request.get('www.google.com', {retry: retry}).should.be.rejectedWith(new RetryError(response))
+        return request.get('www.google.com', {retry: retry}).should.be.rejectedWith(new RequestError(response))
             .then((response) => {
                 should(stub.callCount).eql(3);
             });
