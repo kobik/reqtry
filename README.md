@@ -6,6 +6,8 @@
 
 Wraps both request-promise-native and retry-as-promised together, in order to provide an easy way to do requests with retries while returning a promise.
 
+**Note**: *request-promise* option `resolveWithFullResponse` will be always set to `true`. Hence, the result of any successful request would always contain the full response, regardless its user-defined value.
+
 ## API
 request-repeat should support all [request-promise-native](https://github.com/request/request-promise-native) functionality, so you can pass all options as you would pass them to the original package
 
