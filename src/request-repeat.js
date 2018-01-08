@@ -42,7 +42,7 @@ function buildOptions(url, options, retryDefaults) {
 }
 
 function buildRequestOptions(requestOptions, retryOptions) {
-    retryOptions.simple = requestOptions.simple || retryOptions.simple;
+    retryOptions.simple = [true, undefined].includes(requestOptions.simple);
     requestOptions.simple = false;
     requestOptions.resolveWithFullResponse = true;
     return requestOptions;
