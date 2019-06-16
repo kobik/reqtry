@@ -20,19 +20,19 @@
     "lodash": "^4.17.4",
     "request": "^2.83.0",
     "request-promise-native": "^1.0.5",
-    "retry-as-promised": "^2.3.1"
+    "retry-as-promised": "^3.2.0"
   },
   "devDependencies": {
     "bluebird": "^3.5.1",
-    "eslint": "^4.7.2",
-    "eslint-config-standard": "^10.2.1",
+    "eslint": "^5.16.0",
+    "eslint-config-standard": "^12.0.0",
     "eslint-plugin-import": "^2.7.0",
-    "eslint-plugin-node": "^5.1.1",
-    "eslint-plugin-promise": "^3.5.0",
-    "eslint-plugin-standard": "^3.0.1",
+    "eslint-plugin-node": "^9.1.0",
+    "eslint-plugin-promise": "^4.1.1",
+    "eslint-plugin-standard": "^4.0.0",
     "istanbul": "^0.4.5",
-    "mocha": "^4.0.1",
+    "mocha": "^6.1.4",
     "should": "^13.1.2",
-    "sinon": "^4.0.1"
+    "sinon": "^7.3.2"
   }
 }
