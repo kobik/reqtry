@@ -4,6 +4,8 @@
 [![NPM Downloads][downloads-image]][downloads-url]
 # request-repeat
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/kobik/request-repeat.svg)](https://greenkeeper.io/)
+
 Wraps both request-promise-native and retry-as-promised together, in order to provide an easy way to do requests with retries while returning a promise.
 
 **Note**: *request-promise* option `resolveWithFullResponse` will be always set to `true`. Hence, the result of any successful request would always contain the full response, regardless its user-defined value.
